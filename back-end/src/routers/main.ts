@@ -17,6 +17,7 @@ import { createCidadao } from "../controllers/cidadao";
 import { createGuiche } from "../controllers/guiche";
 import { login } from "../controllers/login";
 import { auth } from "../midlewares/auth";
+import { me } from "../controllers/authMe";
 
 export const mainRouter = Router();
 
@@ -49,3 +50,5 @@ mainRouter.get(
 mainRouter.post("/user/getUserByCpfAndPassword", getUserByCpfAndPassword);
 
 mainRouter.post("/login", login);
+
+mainRouter.get("/me", auth, me);
