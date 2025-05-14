@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container_sine
+    environment:
+      # POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: sine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_sine:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_sine:

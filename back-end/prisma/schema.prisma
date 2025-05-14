@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Reparticao {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String
+  servicos  Servico[]
+  usuarios  Usuario[]
+  guiches   Guiche[]
+  cidadaos  Cidadao[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Guiche {
+  id           String     @id @default(uuid())
+  name         String
+  reparticaoId String
+  senha        Senha[]
+  reparticao   Reparticao @relation(fields: [reparticaoId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Usuario {
+  id           String     @id @default(uuid())
+  role         Role       @default(USUARIO)
+  name         String
+  cpf          String     @unique
+  password     String
+  senha        Senha[]
+  reparticaoId String
+  reparticao   Reparticao @relation(fields: [reparticaoId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Cidadao {
+  id           String     @id @default(uuid())
+  name         String
+  cpf          String     @unique
+  reparticaoId String
+  reparticao   Reparticao @relation(fields: [reparticaoId], references: [id])
+  senha        Senha[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Servico {
+  id           String               @id @default(uuid())
+  name         String
+  slug         String
+  senha        Senha[]
+  contador     ContadorPrioridade[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  reparticaoId String
+  reparticao   Reparticao           @relation(fields: [reparticaoId], references: [id])
+}
+
+model Senha {
+  id          Int         @id @default(autoincrement())
+  senha       String?
+  numeroOrdem Int         @default(1)
+  prioridade  Prioridades @default(NAO_PRIORITARIO)
+  status      SenhaStatus @default(PENDENTE)
+  guicheId    String?
+  guiche      Guiche?     @relation(fields: [guicheId], references: [id])
+  usuarioId   String?
+  usuario     Usuario?    @relation(fields: [usuarioId], references: [id])
+  servicoId   String
+  servico     Servico     @relation(fields: [servicoId], references: [id])
+  cidadaoId   String
+  cidadao     Cidadao     @relation(fields: [cidadaoId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContadorPrioridade {
+  id         Int      @id @default(autoincrement())
+  servicoId  String   @unique
+  quantidade Int      @default(0)
+  updatedAt  DateTime @updatedAt
+  servico    Servico  @relation(fields: [servicoId], references: [id])
+}
+
+enum SenhaStatus {
+  PENDENTE
+  ATENDIDA
+  EM_ATENDIMENTO
+  CANCELADA
+}
+
+enum Prioridades {
+  NAO_PRIORITARIO
+  PRIORITARIO
+  IDOSO_ACIMA_DE_80_ANOS
+}
+
+enum Role {
+  ADMIN
+  USUARIO
+}
