@@ -22,3 +22,30 @@ export const getServicoById = async (servicoId: string) => {
     return false;
   }
 };
+
+export const getAllServios = async (reparticaoId: string) => {
+  try {
+    return await prisma.servico.findMany({
+      where: {
+        reparticaoId: reparticaoId,
+      },
+    });
+  } catch (error) {
+    return false;
+  }
+};
+
+// export const getAllServios = async (reparticaoId: string) => {
+//   try {
+//     return await prisma.reparticao.findMany({
+//       where: {
+//         id: reparticaoId,
+//       },
+//       include: {
+//         servicos: true,
+//       },
+//     });
+//   } catch (error) {
+//     return false;
+//   }
+// };

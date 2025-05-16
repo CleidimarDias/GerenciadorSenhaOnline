@@ -49,3 +49,24 @@ export const getServicoById: RequestHandler = async (req, res) => {
   }
   res.status(200).json(servicoData);
 };
+
+export const getAllServicos: RequestHandler = async (req, res) => {
+  const servicoSchema = z.object({
+    reparticaoId: z.string(),
+  });
+
+  const params = servicoSchema.safeParse(req.params);
+
+  if (!params.success) {
+    res.status(500).json({ error: "Erro no formato do params" });
+    return;
+  }
+
+  const allServices = await servico.getAllServios(params.data.reparticaoId);
+
+  if (!allServices) {
+    res.status(500).json({ error: "Erro ao buscar serviços" });
+  }
+
+  res.status(200).json(allServices);
+};

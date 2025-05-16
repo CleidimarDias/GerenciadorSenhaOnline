@@ -1,15 +1,16 @@
 "use client";
 
-import { useUser } from "./contexts/testeContext";
+import { useUser } from "./contexts/AuthContext";
+
+//import { useUser } from "./contexts/AuthContext";
 
 export default function Home() {
-  const { palavra } = useUser();
+  const { isAuthenticated } = useUser();
 
-  console.log("PALAVRA MUDADA DA PÁGINA HOME: ", palavra);
-
-  return (
-    <div>
-      <h1>{palavra}</h1>
-    </div>
-  );
+  console.log(isAuthenticated);
+  // if (isAuthenticated) {
+  return <div>PÁGINA HOME</div>;
+  // } else {
+  //   redirect("/bla/login");
+  // }
 }

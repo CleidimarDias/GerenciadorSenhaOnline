@@ -7,7 +7,11 @@ import {
   getOneReparticaoBySlug,
 } from "../controllers/reparticao";
 import { createUser, getUserByCpfAndPassword } from "../controllers/usuario";
-import { createServico, getServicoById } from "../controllers/servico";
+import {
+  createServico,
+  getAllServicos,
+  getServicoById,
+} from "../controllers/servico";
 import {
   chamarProximaSenha,
   createSenha,
@@ -30,12 +34,18 @@ mainRouter.get(
   getOneReparticaoBySlug
 );
 mainRouter.post("/user/reparticaoId/:reparticaoId", createUser);
+
 mainRouter.post("/servico/reparticaoId/:reparticaoId", createServico);
 mainRouter.get("/servico/servicoId/:servicoId", getServicoById);
 mainRouter.post(
   "/senha/servicoId/:servicoId/cidadaoId/:cidadaoId",
   createSenha
 );
+mainRouter.get(
+  "/reparticao/reparticaoId/:reparticaoId/allServicos",
+  getAllServicos
+);
+
 mainRouter.post("/cidadao/reparticaoId/:reparticaoId", createCidadao);
 mainRouter.post("/guiche/reparticaoId/:reparticaoId", createGuiche);
 mainRouter.post(
@@ -51,4 +61,4 @@ mainRouter.post("/user/getUserByCpfAndPassword", getUserByCpfAndPassword);
 
 mainRouter.post("/login", login);
 
-mainRouter.get("/me", auth, me);
+mainRouter.get("/auth/me", auth, me);

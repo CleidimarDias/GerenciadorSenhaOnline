@@ -1,6 +1,12 @@
 // src/controllers/authController.ts
 import { RequestHandler } from "express";
 
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: any;
+  }
+}
+
 export const me: RequestHandler = async (req, res) => {
   if (!req.user) {
     res.status(403).json({ message: "Usuário não autenticado" });

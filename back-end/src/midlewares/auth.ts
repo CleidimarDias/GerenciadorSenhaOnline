@@ -1,12 +1,12 @@
-import { RequestHandler } from "express";
-import JWT from "jsonwebtoken";
+import { RequestHandler, Request } from "express";
 
-interface user {
-  id: string;
-  name: string;
-  cpf: string;
-  role: string;
+// Extend the Request interface to include the 'user' property
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: any;
+  }
 }
+import JWT from "jsonwebtoken";
 
 export const auth: RequestHandler = async (req, res, next) => {
   let sucesso = false;
@@ -21,7 +21,7 @@ export const auth: RequestHandler = async (req, res, next) => {
     if (authType === Bearer) {
       try {
         const decoded = JWT.verify(token, key as string);
-        req.user = decoded;
+        req.user = decoded as any;
         console.log(decoded);
         sucesso = true;
       } catch (error) {

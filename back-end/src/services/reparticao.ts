@@ -36,6 +36,7 @@ export const getOneReparticaoBySlug = async (reparticaoSlug: string) => {
       },
       select: {
         name: true,
+        id: true,
       },
     });
   } catch (error) {

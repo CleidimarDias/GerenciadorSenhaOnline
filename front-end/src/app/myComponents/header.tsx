@@ -1,11 +1,6 @@
-"use client";
-import { useUser } from "@/app/contexts/testeContext";
 import Image from "next/image";
 
 export default function Header() {
-  const { palavra } = useUser();
-
-  console.log("PALAVRA MUDADA DA PAGINA HEADER", palavra);
   return (
     <div className="bg-[#1270b7] h-[200px] w-screen flex justify-between items-center p-5 ">
       <Image
@@ -15,7 +10,9 @@ export default function Header() {
         width={355}
         className=" "
       />
-      <h3 className="text-white text-3xl font-semibold ">{palavra}</h3>
+      <h3 className="text-white text-3xl font-semibold mr-10 ">
+        Gerênciador de Senhas
+      </h3>
     </div>
   );
 }
