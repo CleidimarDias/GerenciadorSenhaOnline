@@ -63,15 +63,6 @@ export namespace $Enums {
 export type SenhaStatus = (typeof SenhaStatus)[keyof typeof SenhaStatus]
 
 
-export const Prioridades: {
-  NAO_PRIORITARIO: 'NAO_PRIORITARIO',
-  PRIORITARIO: 'PRIORITARIO',
-  IDOSO_ACIMA_DE_80_ANOS: 'IDOSO_ACIMA_DE_80_ANOS'
-};
-
-export type Prioridades = (typeof Prioridades)[keyof typeof Prioridades]
-
-
 export const Role: {
   ADMIN: 'ADMIN',
   USUARIO: 'USUARIO'
@@ -84,10 +75,6 @@ export type Role = (typeof Role)[keyof typeof Role]
 export type SenhaStatus = $Enums.SenhaStatus
 
 export const SenhaStatus: typeof $Enums.SenhaStatus
-
-export type Prioridades = $Enums.Prioridades
-
-export const Prioridades: typeof $Enums.Prioridades
 
 export type Role = $Enums.Role
 
@@ -5033,6 +5020,7 @@ export namespace Prisma {
     name: string | null
     cpf: string | null
     reparticaoId: string | null
+    prioridade: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5042,6 +5030,7 @@ export namespace Prisma {
     name: string | null
     cpf: string | null
     reparticaoId: string | null
+    prioridade: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5051,6 +5040,7 @@ export namespace Prisma {
     name: number
     cpf: number
     reparticaoId: number
+    prioridade: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5062,6 +5052,7 @@ export namespace Prisma {
     name?: true
     cpf?: true
     reparticaoId?: true
+    prioridade?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5071,6 +5062,7 @@ export namespace Prisma {
     name?: true
     cpf?: true
     reparticaoId?: true
+    prioridade?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5080,6 +5072,7 @@ export namespace Prisma {
     name?: true
     cpf?: true
     reparticaoId?: true
+    prioridade?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5162,6 +5155,7 @@ export namespace Prisma {
     name: string
     cpf: string
     reparticaoId: string
+    prioridade: boolean
     createdAt: Date
     updatedAt: Date
     _count: CidadaoCountAggregateOutputType | null
@@ -5188,6 +5182,7 @@ export namespace Prisma {
     name?: boolean
     cpf?: boolean
     reparticaoId?: boolean
+    prioridade?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reparticao?: boolean | ReparticaoDefaultArgs<ExtArgs>
@@ -5200,6 +5195,7 @@ export namespace Prisma {
     name?: boolean
     cpf?: boolean
     reparticaoId?: boolean
+    prioridade?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reparticao?: boolean | ReparticaoDefaultArgs<ExtArgs>
@@ -5210,6 +5206,7 @@ export namespace Prisma {
     name?: boolean
     cpf?: boolean
     reparticaoId?: boolean
+    prioridade?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reparticao?: boolean | ReparticaoDefaultArgs<ExtArgs>
@@ -5220,11 +5217,12 @@ export namespace Prisma {
     name?: boolean
     cpf?: boolean
     reparticaoId?: boolean
+    prioridade?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CidadaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "cpf" | "reparticaoId" | "createdAt" | "updatedAt", ExtArgs["result"]["cidadao"]>
+  export type CidadaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "cpf" | "reparticaoId" | "prioridade" | "createdAt" | "updatedAt", ExtArgs["result"]["cidadao"]>
   export type CidadaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reparticao?: boolean | ReparticaoDefaultArgs<ExtArgs>
     senha?: boolean | Cidadao$senhaArgs<ExtArgs>
@@ -5248,6 +5246,7 @@ export namespace Prisma {
       name: string
       cpf: string
       reparticaoId: string
+      prioridade: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["cidadao"]>
@@ -5679,6 +5678,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Cidadao", 'String'>
     readonly cpf: FieldRef<"Cidadao", 'String'>
     readonly reparticaoId: FieldRef<"Cidadao", 'String'>
+    readonly prioridade: FieldRef<"Cidadao", 'Boolean'>
     readonly createdAt: FieldRef<"Cidadao", 'DateTime'>
     readonly updatedAt: FieldRef<"Cidadao", 'DateTime'>
   }
@@ -7274,7 +7274,6 @@ export namespace Prisma {
     id: number | null
     senha: string | null
     numeroOrdem: number | null
-    prioridade: $Enums.Prioridades | null
     status: $Enums.SenhaStatus | null
     guicheId: string | null
     usuarioId: string | null
@@ -7288,7 +7287,6 @@ export namespace Prisma {
     id: number | null
     senha: string | null
     numeroOrdem: number | null
-    prioridade: $Enums.Prioridades | null
     status: $Enums.SenhaStatus | null
     guicheId: string | null
     usuarioId: string | null
@@ -7302,7 +7300,6 @@ export namespace Prisma {
     id: number
     senha: number
     numeroOrdem: number
-    prioridade: number
     status: number
     guicheId: number
     usuarioId: number
@@ -7328,7 +7325,6 @@ export namespace Prisma {
     id?: true
     senha?: true
     numeroOrdem?: true
-    prioridade?: true
     status?: true
     guicheId?: true
     usuarioId?: true
@@ -7342,7 +7338,6 @@ export namespace Prisma {
     id?: true
     senha?: true
     numeroOrdem?: true
-    prioridade?: true
     status?: true
     guicheId?: true
     usuarioId?: true
@@ -7356,7 +7351,6 @@ export namespace Prisma {
     id?: true
     senha?: true
     numeroOrdem?: true
-    prioridade?: true
     status?: true
     guicheId?: true
     usuarioId?: true
@@ -7457,7 +7451,6 @@ export namespace Prisma {
     id: number
     senha: string | null
     numeroOrdem: number
-    prioridade: $Enums.Prioridades
     status: $Enums.SenhaStatus
     guicheId: string | null
     usuarioId: string | null
@@ -7490,7 +7483,6 @@ export namespace Prisma {
     id?: boolean
     senha?: boolean
     numeroOrdem?: boolean
-    prioridade?: boolean
     status?: boolean
     guicheId?: boolean
     usuarioId?: boolean
@@ -7508,7 +7500,6 @@ export namespace Prisma {
     id?: boolean
     senha?: boolean
     numeroOrdem?: boolean
-    prioridade?: boolean
     status?: boolean
     guicheId?: boolean
     usuarioId?: boolean
@@ -7526,7 +7517,6 @@ export namespace Prisma {
     id?: boolean
     senha?: boolean
     numeroOrdem?: boolean
-    prioridade?: boolean
     status?: boolean
     guicheId?: boolean
     usuarioId?: boolean
@@ -7544,7 +7534,6 @@ export namespace Prisma {
     id?: boolean
     senha?: boolean
     numeroOrdem?: boolean
-    prioridade?: boolean
     status?: boolean
     guicheId?: boolean
     usuarioId?: boolean
@@ -7554,7 +7543,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SenhaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senha" | "numeroOrdem" | "prioridade" | "status" | "guicheId" | "usuarioId" | "servicoId" | "cidadaoId" | "createdAt" | "updatedAt", ExtArgs["result"]["senha"]>
+  export type SenhaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senha" | "numeroOrdem" | "status" | "guicheId" | "usuarioId" | "servicoId" | "cidadaoId" | "createdAt" | "updatedAt", ExtArgs["result"]["senha"]>
   export type SenhaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     guiche?: boolean | Senha$guicheArgs<ExtArgs>
     usuario?: boolean | Senha$usuarioArgs<ExtArgs>
@@ -7586,7 +7575,6 @@ export namespace Prisma {
       id: number
       senha: string | null
       numeroOrdem: number
-      prioridade: $Enums.Prioridades
       status: $Enums.SenhaStatus
       guicheId: string | null
       usuarioId: string | null
@@ -8024,7 +8012,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Senha", 'Int'>
     readonly senha: FieldRef<"Senha", 'String'>
     readonly numeroOrdem: FieldRef<"Senha", 'Int'>
-    readonly prioridade: FieldRef<"Senha", 'Prioridades'>
     readonly status: FieldRef<"Senha", 'SenhaStatus'>
     readonly guicheId: FieldRef<"Senha", 'String'>
     readonly usuarioId: FieldRef<"Senha", 'String'>
@@ -9622,6 +9609,7 @@ export namespace Prisma {
     name: 'name',
     cpf: 'cpf',
     reparticaoId: 'reparticaoId',
+    prioridade: 'prioridade',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9645,7 +9633,6 @@ export namespace Prisma {
     id: 'id',
     senha: 'senha',
     numeroOrdem: 'numeroOrdem',
-    prioridade: 'prioridade',
     status: 'status',
     guicheId: 'guicheId',
     usuarioId: 'usuarioId',
@@ -9740,6 +9727,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9750,20 +9744,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Prioridades'
-   */
-  export type EnumPrioridadesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Prioridades'>
-    
-
-
-  /**
-   * Reference to a field of type 'Prioridades[]'
-   */
-  export type ListEnumPrioridadesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Prioridades[]'>
     
 
 
@@ -10001,6 +9981,7 @@ export namespace Prisma {
     name?: StringFilter<"Cidadao"> | string
     cpf?: StringFilter<"Cidadao"> | string
     reparticaoId?: StringFilter<"Cidadao"> | string
+    prioridade?: BoolFilter<"Cidadao"> | boolean
     createdAt?: DateTimeFilter<"Cidadao"> | Date | string
     updatedAt?: DateTimeFilter<"Cidadao"> | Date | string
     reparticao?: XOR<ReparticaoScalarRelationFilter, ReparticaoWhereInput>
@@ -10012,6 +9993,7 @@ export namespace Prisma {
     name?: SortOrder
     cpf?: SortOrder
     reparticaoId?: SortOrder
+    prioridade?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     reparticao?: ReparticaoOrderByWithRelationInput
@@ -10026,6 +10008,7 @@ export namespace Prisma {
     NOT?: CidadaoWhereInput | CidadaoWhereInput[]
     name?: StringFilter<"Cidadao"> | string
     reparticaoId?: StringFilter<"Cidadao"> | string
+    prioridade?: BoolFilter<"Cidadao"> | boolean
     createdAt?: DateTimeFilter<"Cidadao"> | Date | string
     updatedAt?: DateTimeFilter<"Cidadao"> | Date | string
     reparticao?: XOR<ReparticaoScalarRelationFilter, ReparticaoWhereInput>
@@ -10037,6 +10020,7 @@ export namespace Prisma {
     name?: SortOrder
     cpf?: SortOrder
     reparticaoId?: SortOrder
+    prioridade?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CidadaoCountOrderByAggregateInput
@@ -10052,6 +10036,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Cidadao"> | string
     cpf?: StringWithAggregatesFilter<"Cidadao"> | string
     reparticaoId?: StringWithAggregatesFilter<"Cidadao"> | string
+    prioridade?: BoolWithAggregatesFilter<"Cidadao"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Cidadao"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Cidadao"> | Date | string
   }
@@ -10129,7 +10114,6 @@ export namespace Prisma {
     id?: IntFilter<"Senha"> | number
     senha?: StringNullableFilter<"Senha"> | string | null
     numeroOrdem?: IntFilter<"Senha"> | number
-    prioridade?: EnumPrioridadesFilter<"Senha"> | $Enums.Prioridades
     status?: EnumSenhaStatusFilter<"Senha"> | $Enums.SenhaStatus
     guicheId?: StringNullableFilter<"Senha"> | string | null
     usuarioId?: StringNullableFilter<"Senha"> | string | null
@@ -10147,7 +10131,6 @@ export namespace Prisma {
     id?: SortOrder
     senha?: SortOrderInput | SortOrder
     numeroOrdem?: SortOrder
-    prioridade?: SortOrder
     status?: SortOrder
     guicheId?: SortOrderInput | SortOrder
     usuarioId?: SortOrderInput | SortOrder
@@ -10168,7 +10151,6 @@ export namespace Prisma {
     NOT?: SenhaWhereInput | SenhaWhereInput[]
     senha?: StringNullableFilter<"Senha"> | string | null
     numeroOrdem?: IntFilter<"Senha"> | number
-    prioridade?: EnumPrioridadesFilter<"Senha"> | $Enums.Prioridades
     status?: EnumSenhaStatusFilter<"Senha"> | $Enums.SenhaStatus
     guicheId?: StringNullableFilter<"Senha"> | string | null
     usuarioId?: StringNullableFilter<"Senha"> | string | null
@@ -10186,7 +10168,6 @@ export namespace Prisma {
     id?: SortOrder
     senha?: SortOrderInput | SortOrder
     numeroOrdem?: SortOrder
-    prioridade?: SortOrder
     status?: SortOrder
     guicheId?: SortOrderInput | SortOrder
     usuarioId?: SortOrderInput | SortOrder
@@ -10208,7 +10189,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Senha"> | number
     senha?: StringNullableWithAggregatesFilter<"Senha"> | string | null
     numeroOrdem?: IntWithAggregatesFilter<"Senha"> | number
-    prioridade?: EnumPrioridadesWithAggregatesFilter<"Senha"> | $Enums.Prioridades
     status?: EnumSenhaStatusWithAggregatesFilter<"Senha"> | $Enums.SenhaStatus
     guicheId?: StringNullableWithAggregatesFilter<"Senha"> | string | null
     usuarioId?: StringNullableWithAggregatesFilter<"Senha"> | string | null
@@ -10485,6 +10465,7 @@ export namespace Prisma {
     id?: string
     name: string
     cpf: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reparticao: ReparticaoCreateNestedOneWithoutCidadaosInput
@@ -10496,6 +10477,7 @@ export namespace Prisma {
     name: string
     cpf: string
     reparticaoId: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     senha?: SenhaUncheckedCreateNestedManyWithoutCidadaoInput
@@ -10505,6 +10487,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reparticao?: ReparticaoUpdateOneRequiredWithoutCidadaosNestedInput
@@ -10516,6 +10499,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
     reparticaoId?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senha?: SenhaUncheckedUpdateManyWithoutCidadaoNestedInput
@@ -10526,6 +10510,7 @@ export namespace Prisma {
     name: string
     cpf: string
     reparticaoId: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10534,6 +10519,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10543,6 +10529,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
     reparticaoId?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10620,7 +10607,6 @@ export namespace Prisma {
   export type SenhaCreateInput = {
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10634,7 +10620,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -10647,7 +10632,6 @@ export namespace Prisma {
   export type SenhaUpdateInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10661,7 +10645,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10675,7 +10658,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -10688,7 +10670,6 @@ export namespace Prisma {
   export type SenhaUpdateManyMutationInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10698,7 +10679,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10964,11 +10944,17 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type CidadaoCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     cpf?: SortOrder
     reparticaoId?: SortOrder
+    prioridade?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10978,6 +10964,7 @@ export namespace Prisma {
     name?: SortOrder
     cpf?: SortOrder
     reparticaoId?: SortOrder
+    prioridade?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10987,8 +10974,17 @@ export namespace Prisma {
     name?: SortOrder
     cpf?: SortOrder
     reparticaoId?: SortOrder
+    prioridade?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ContadorPrioridadeListRelationFilter = {
@@ -11054,13 +11050,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type EnumPrioridadesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Prioridades | EnumPrioridadesFieldRefInput<$PrismaModel>
-    in?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    not?: NestedEnumPrioridadesFilter<$PrismaModel> | $Enums.Prioridades
-  }
-
   export type EnumSenhaStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.SenhaStatus | EnumSenhaStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SenhaStatus[] | ListEnumSenhaStatusFieldRefInput<$PrismaModel>
@@ -11097,7 +11086,6 @@ export namespace Prisma {
     id?: SortOrder
     senha?: SortOrder
     numeroOrdem?: SortOrder
-    prioridade?: SortOrder
     status?: SortOrder
     guicheId?: SortOrder
     usuarioId?: SortOrder
@@ -11116,7 +11104,6 @@ export namespace Prisma {
     id?: SortOrder
     senha?: SortOrder
     numeroOrdem?: SortOrder
-    prioridade?: SortOrder
     status?: SortOrder
     guicheId?: SortOrder
     usuarioId?: SortOrder
@@ -11130,7 +11117,6 @@ export namespace Prisma {
     id?: SortOrder
     senha?: SortOrder
     numeroOrdem?: SortOrder
-    prioridade?: SortOrder
     status?: SortOrder
     guicheId?: SortOrder
     usuarioId?: SortOrder
@@ -11177,16 +11163,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type EnumPrioridadesWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Prioridades | EnumPrioridadesFieldRefInput<$PrismaModel>
-    in?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    not?: NestedEnumPrioridadesWithAggregatesFilter<$PrismaModel> | $Enums.Prioridades
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPrioridadesFilter<$PrismaModel>
-    _max?: NestedEnumPrioridadesFilter<$PrismaModel>
   }
 
   export type EnumSenhaStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -11542,6 +11518,10 @@ export namespace Prisma {
     connect?: SenhaWhereUniqueInput | SenhaWhereUniqueInput[]
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type ReparticaoUpdateOneRequiredWithoutCidadaosNestedInput = {
     create?: XOR<ReparticaoCreateWithoutCidadaosInput, ReparticaoUncheckedCreateWithoutCidadaosInput>
     connectOrCreate?: ReparticaoCreateOrConnectWithoutCidadaosInput
@@ -11712,10 +11692,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type EnumPrioridadesFieldUpdateOperationsInput = {
-    set?: $Enums.Prioridades
-  }
-
   export type EnumSenhaStatusFieldUpdateOperationsInput = {
     set?: $Enums.SenhaStatus
   }
@@ -11854,6 +11830,19 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -11866,13 +11855,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumPrioridadesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Prioridades | EnumPrioridadesFieldRefInput<$PrismaModel>
-    in?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    not?: NestedEnumPrioridadesFilter<$PrismaModel> | $Enums.Prioridades
   }
 
   export type NestedEnumSenhaStatusFilter<$PrismaModel = never> = {
@@ -11935,16 +11917,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumPrioridadesWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Prioridades | EnumPrioridadesFieldRefInput<$PrismaModel>
-    in?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Prioridades[] | ListEnumPrioridadesFieldRefInput<$PrismaModel>
-    not?: NestedEnumPrioridadesWithAggregatesFilter<$PrismaModel> | $Enums.Prioridades
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPrioridadesFilter<$PrismaModel>
-    _max?: NestedEnumPrioridadesFilter<$PrismaModel>
   }
 
   export type NestedEnumSenhaStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -12049,6 +12021,7 @@ export namespace Prisma {
     id?: string
     name: string
     cpf: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     senha?: SenhaCreateNestedManyWithoutCidadaoInput
@@ -12058,6 +12031,7 @@ export namespace Prisma {
     id?: string
     name: string
     cpf: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     senha?: SenhaUncheckedCreateNestedManyWithoutCidadaoInput
@@ -12182,6 +12156,7 @@ export namespace Prisma {
     name?: StringFilter<"Cidadao"> | string
     cpf?: StringFilter<"Cidadao"> | string
     reparticaoId?: StringFilter<"Cidadao"> | string
+    prioridade?: BoolFilter<"Cidadao"> | boolean
     createdAt?: DateTimeFilter<"Cidadao"> | Date | string
     updatedAt?: DateTimeFilter<"Cidadao"> | Date | string
   }
@@ -12189,7 +12164,6 @@ export namespace Prisma {
   export type SenhaCreateWithoutGuicheInput = {
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12202,7 +12176,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     usuarioId?: string | null
     servicoId: string
@@ -12271,7 +12244,6 @@ export namespace Prisma {
     id?: IntFilter<"Senha"> | number
     senha?: StringNullableFilter<"Senha"> | string | null
     numeroOrdem?: IntFilter<"Senha"> | number
-    prioridade?: EnumPrioridadesFilter<"Senha"> | $Enums.Prioridades
     status?: EnumSenhaStatusFilter<"Senha"> | $Enums.SenhaStatus
     guicheId?: StringNullableFilter<"Senha"> | string | null
     usuarioId?: StringNullableFilter<"Senha"> | string | null
@@ -12317,7 +12289,6 @@ export namespace Prisma {
   export type SenhaCreateWithoutUsuarioInput = {
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12330,7 +12301,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     servicoId: string
@@ -12455,7 +12425,6 @@ export namespace Prisma {
   export type SenhaCreateWithoutCidadaoInput = {
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12468,7 +12437,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -12539,7 +12507,6 @@ export namespace Prisma {
   export type SenhaCreateWithoutServicoInput = {
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12552,7 +12519,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -12771,6 +12737,7 @@ export namespace Prisma {
     id?: string
     name: string
     cpf: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reparticao: ReparticaoCreateNestedOneWithoutCidadaosInput
@@ -12781,6 +12748,7 @@ export namespace Prisma {
     name: string
     cpf: string
     reparticaoId: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12896,6 +12864,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reparticao?: ReparticaoUpdateOneRequiredWithoutCidadaosNestedInput
@@ -12906,6 +12875,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
     reparticaoId?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12995,6 +12965,7 @@ export namespace Prisma {
     id?: string
     name: string
     cpf: string
+    prioridade?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13086,6 +13057,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senha?: SenhaUpdateManyWithoutCidadaoNestedInput
@@ -13095,6 +13067,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senha?: SenhaUncheckedUpdateManyWithoutCidadaoNestedInput
@@ -13104,6 +13077,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cpf?: StringFieldUpdateOperationsInput | string
+    prioridade?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13112,7 +13086,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     usuarioId?: string | null
     servicoId: string
@@ -13124,7 +13097,6 @@ export namespace Prisma {
   export type SenhaUpdateWithoutGuicheInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13137,7 +13109,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
     servicoId?: StringFieldUpdateOperationsInput | string
@@ -13150,7 +13121,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
     servicoId?: StringFieldUpdateOperationsInput | string
@@ -13163,7 +13133,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     servicoId: string
@@ -13175,7 +13144,6 @@ export namespace Prisma {
   export type SenhaUpdateWithoutUsuarioInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13188,7 +13156,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     servicoId?: StringFieldUpdateOperationsInput | string
@@ -13201,7 +13168,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     servicoId?: StringFieldUpdateOperationsInput | string
@@ -13214,7 +13180,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -13226,7 +13191,6 @@ export namespace Prisma {
   export type SenhaUpdateWithoutCidadaoInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13239,7 +13203,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13252,7 +13215,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13265,7 +13227,6 @@ export namespace Prisma {
     id?: number
     senha?: string | null
     numeroOrdem?: number
-    prioridade?: $Enums.Prioridades
     status?: $Enums.SenhaStatus
     guicheId?: string | null
     usuarioId?: string | null
@@ -13283,7 +13244,6 @@ export namespace Prisma {
   export type SenhaUpdateWithoutServicoInput = {
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13296,7 +13256,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13309,7 +13268,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     senha?: NullableStringFieldUpdateOperationsInput | string | null
     numeroOrdem?: IntFieldUpdateOperationsInput | number
-    prioridade?: EnumPrioridadesFieldUpdateOperationsInput | $Enums.Prioridades
     status?: EnumSenhaStatusFieldUpdateOperationsInput | $Enums.SenhaStatus
     guicheId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null

@@ -149,6 +149,7 @@ exports.Prisma.CidadaoScalarFieldEnum = {
   name: 'name',
   cpf: 'cpf',
   reparticaoId: 'reparticaoId',
+  prioridade: 'prioridade',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -166,7 +167,6 @@ exports.Prisma.SenhaScalarFieldEnum = {
   id: 'id',
   senha: 'senha',
   numeroOrdem: 'numeroOrdem',
-  prioridade: 'prioridade',
   status: 'status',
   guicheId: 'guicheId',
   usuarioId: 'usuarioId',
@@ -200,12 +200,6 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   USUARIO: 'USUARIO'
-};
-
-exports.Prioridades = exports.$Enums.Prioridades = {
-  NAO_PRIORITARIO: 'NAO_PRIORITARIO',
-  PRIORITARIO: 'PRIORITARIO',
-  IDOSO_ACIMA_DE_80_ANOS: 'IDOSO_ACIMA_DE_80_ANOS'
 };
 
 exports.SenhaStatus = exports.$Enums.SenhaStatus = {

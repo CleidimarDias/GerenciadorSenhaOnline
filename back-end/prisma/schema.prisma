@@ -50,6 +50,7 @@ model Cidadao {
   reparticaoId String
   reparticao   Reparticao @relation(fields: [reparticaoId], references: [id])
   senha        Senha[]
+  prioridade   Boolean    @default(false)
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }
@@ -67,19 +68,19 @@ model Servico {
 }
 
 model Senha {
-  id          Int         @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   senha       String?
-  numeroOrdem Int         @default(1)
-  prioridade  Prioridades @default(NAO_PRIORITARIO)
-  status      SenhaStatus @default(PENDENTE)
-  guicheId    String?
-  guiche      Guiche?     @relation(fields: [guicheId], references: [id])
-  usuarioId   String?
-  usuario     Usuario?    @relation(fields: [usuarioId], references: [id])
-  servicoId   String
-  servico     Servico     @relation(fields: [servicoId], references: [id])
-  cidadaoId   String
-  cidadao     Cidadao     @relation(fields: [cidadaoId], references: [id])
+  numeroOrdem Int     @default(1)
+
+  status    SenhaStatus @default(PENDENTE)
+  guicheId  String?
+  guiche    Guiche?     @relation(fields: [guicheId], references: [id])
+  usuarioId String?
+  usuario   Usuario?    @relation(fields: [usuarioId], references: [id])
+  servicoId String
+  servico   Servico     @relation(fields: [servicoId], references: [id])
+  cidadaoId String
+  cidadao   Cidadao     @relation(fields: [cidadaoId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -100,11 +101,11 @@ enum SenhaStatus {
   CANCELADA
 }
 
-enum Prioridades {
-  NAO_PRIORITARIO
-  PRIORITARIO
-  IDOSO_ACIMA_DE_80_ANOS
-}
+// enum Prioridades {
+//   NAO_PRIORITARIO
+//   PRIORITARIO
+//   IDOSO_ACIMA_DE_80_ANOS
+// }
 
 enum Role {
   ADMIN

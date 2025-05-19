@@ -12,11 +12,7 @@ import {
   getAllServicos,
   getServicoById,
 } from "../controllers/servico";
-import {
-  chamarProximaSenha,
-  createSenha,
-  updateSenha,
-} from "../controllers/senha";
+import { chamarProximaSenha, createSenha } from "../controllers/senha";
 import { createCidadao } from "../controllers/cidadao";
 import { createGuiche } from "../controllers/guiche";
 import { login } from "../controllers/login";

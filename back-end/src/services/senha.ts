@@ -50,6 +50,7 @@ export const createSenha = async (data: createSenha) => {
           select: {
             cpf: true,
             name: true,
+            prioridade: true,
           },
         }, // Inclui os dados do cidadão na resposta
       },
@@ -61,7 +62,7 @@ export const createSenha = async (data: createSenha) => {
   }
 };
 
-// ------------------------------------------------PROXIMA SENHA---------------------------------------------------
+// // ------------------------------------------------PROXIMA SENHA---------------------------------------------------
 // Chama a próxima senha para atendimento, considerando as prioridades e o guichê
 interface ProximaSenhaData {
   servicoId: string; // ID do serviço associado à senha
@@ -104,16 +105,21 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
 
     if (contador.quantidade < 2) {
       // Tenta buscar uma senha prioritária
-      const proximaSenha = await prisma.senha.findFirst({
+      const proximaSenhaPrioritaria = await prisma.senha.findFirst({
         where: {
           servicoId: data.servicoId,
           status: "PENDENTE",
-          prioridade: "PRIORITARIO",
+          cidadao: {
+            prioridade: true,
+          },
         },
         orderBy: { numeroOrdem: "asc" },
+        include: {
+          cidadao: true,
+        },
       });
 
-      if (proximaSenha) {
+      if (proximaSenhaPrioritaria) {
         // Atualiza contador no banco
         await prisma.contadorPrioridade.update({
           where: { servicoId: data.servicoId },
@@ -121,7 +127,7 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
         });
 
         senhaAtualizada = await prisma.senha.update({
-          where: { id: proximaSenha.id },
+          where: { id: proximaSenhaPrioritaria.id },
           data: {
             status: "EM_ATENDIMENTO",
             guicheId: data.guicheId,
@@ -132,6 +138,7 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
               select: {
                 cpf: true,
                 name: true,
+                prioridade: true,
               },
             },
             guiche: {
@@ -152,17 +159,21 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
     }
 
     // Se já atendeu 2 prioritárias ou não achou nenhuma prioritária, chama não prioritária
-    const proximaSenha = await prisma.senha.findFirst({
+    const proximaSenhaNaoPrioritaria = await prisma.senha.findFirst({
       where: {
         servicoId: data.servicoId,
         status: "PENDENTE",
-        prioridade: "NAO_PRIORITARIO",
+        cidadao: {
+          prioridade: false,
+        },
       },
       orderBy: { numeroOrdem: "asc" },
+      include: {
+        cidadao: true,
+      },
     });
 
-    if (proximaSenha) {
-      console.log("Entrou no próxima senha!!!!!!!!");
+    if (proximaSenhaNaoPrioritaria) {
       // Zera o contador de prioritários
       await prisma.contadorPrioridade.update({
         where: { servicoId: data.servicoId },
@@ -170,7 +181,7 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
       });
 
       senhaAtualizada = await prisma.senha.update({
-        where: { id: proximaSenha.id },
+        where: { id: proximaSenhaNaoPrioritaria.id },
         data: {
           status: "EM_ATENDIMENTO",
           guicheId: data.guicheId,
@@ -181,6 +192,7 @@ export const chamarProximaSenha = async (data: ProximaSenhaData) => {
             select: {
               cpf: true,
               name: true,
+              prioridade: true,
             },
           },
           guiche: {

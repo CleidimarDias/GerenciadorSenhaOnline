@@ -1,27 +1,26 @@
 import { RequestHandler } from "express";
 import z from "zod";
 import * as senha from "../services/senha";
-import { Prioridades, SenhaStatus } from "../generated/prisma";
+// import { Prioridades, SenhaStatus } from "../generated/prisma";
 
 export const createSenha: RequestHandler = async (req, res) => {
   const SenhaSchemaParams = z.object({
     servicoId: z.string().min(1).max(255),
-
     cidadaoId: z.string().min(1).max(255),
 
     //status: z.enum(["PENDENTE", "ATENDIDO", "CANCELADO"]),
   });
 
-  const SenhaSchemaBody = z.object({
-    prioridade: z.enum([
-      "NAO_PRIORITARIO",
-      "PRIORITARIO",
-      "IDOSO_ACIMA_DE_80_ANOS",
-    ]),
-  });
+  // const SenhaSchemaBody = z.object({
+  //   prioridade: z.enum([
+  //     "NAO_PRIORITARIO",
+  //     "PRIORITARIO",
+  //     "IDOSO_ACIMA_DE_80_ANOS",
+  //   ]),
+  // });
 
-  const BodySchema = SenhaSchemaBody.safeParse(req.body);
-  console.log("BodySchema", BodySchema.data);
+  // const BodySchema = SenhaSchemaBody.safeParse(req.body);
+  // console.log("BodySchema", BodySchema.data);
 
   // if (!BodySchema.success) {
   //   res.status(400).json({ error: "erro  prioridades" });
@@ -35,7 +34,7 @@ export const createSenha: RequestHandler = async (req, res) => {
 
   const newSenha = await senha.createSenha({
     ...ParamsSchema.data,
-    ...BodySchema.data,
+    // ...BodySchema.data,
   });
 
   if (!newSenha) {
@@ -46,7 +45,7 @@ export const createSenha: RequestHandler = async (req, res) => {
   return;
 };
 
-// PROXIMA SENHA
+//PROXIMA SENHA---------------------------------------------------------------
 
 export const chamarProximaSenha: RequestHandler = async (req, res) => {
   const SenhaSchemaParams = z.object({
