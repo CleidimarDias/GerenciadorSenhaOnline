@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <div className="bg-[#1270b7] h-[200px] w-screen flex justify-between items-center p-5 ">
+    <div className="bg-[#1270b7] h-[200px] max-w-screen flex justify-between items-center p-5 ">
       <Image
         src="/logo-prefeitura.png"
         alt="logo"
