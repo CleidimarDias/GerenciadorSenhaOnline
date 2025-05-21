@@ -249,3 +249,32 @@ export const updateSenha = async (data: UpdateSenhaData) => {
     return false;
   }
 };
+
+// Pegar todas as senhas com status de pendentes------------------------------------
+
+export const getAllPendingSenhas = async (servicoId: string) => {
+  try {
+    return await prisma.senha.findMany({
+      where: {
+        AND: [
+          {
+            servicoId: servicoId,
+          },
+          {
+            status: "PENDENTE",
+          },
+        ],
+      },
+      include: {
+        servico: true,
+        cidadao: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  } catch (error) {
+    console.error("Erro ao pegar todas as senahs: ", error);
+    return false;
+  }
+};

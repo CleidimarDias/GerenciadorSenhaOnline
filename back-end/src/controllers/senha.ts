@@ -7,24 +7,7 @@ export const createSenha: RequestHandler = async (req, res) => {
   const SenhaSchemaParams = z.object({
     servicoId: z.string().min(1).max(255),
     cidadaoId: z.string().min(1).max(255),
-
-    //status: z.enum(["PENDENTE", "ATENDIDO", "CANCELADO"]),
   });
-
-  // const SenhaSchemaBody = z.object({
-  //   prioridade: z.enum([
-  //     "NAO_PRIORITARIO",
-  //     "PRIORITARIO",
-  //     "IDOSO_ACIMA_DE_80_ANOS",
-  //   ]),
-  // });
-
-  // const BodySchema = SenhaSchemaBody.safeParse(req.body);
-  // console.log("BodySchema", BodySchema.data);
-
-  // if (!BodySchema.success) {
-  //   res.status(400).json({ error: "erro  prioridades" });
-  // }
 
   const ParamsSchema = SenhaSchemaParams.safeParse(req.params);
   if (!ParamsSchema.success) {
@@ -110,4 +93,31 @@ export const updateSenha: RequestHandler = async (req, res) => {
     return;
   }
   res.status(201).json(newSenha);
+};
+
+// Mostrar todas as senhas com status de pendente---------------------------
+
+export const getAllPendingSenhas: RequestHandler = async (req, res) => {
+  const senhasSchema = z.object({
+    servicoId: z.string(),
+  });
+
+  const paramsShema = senhasSchema.safeParse(req.params);
+
+  if (!paramsShema.success) {
+    res.status(400).json({ error: "erro ao passar os params" });
+    return;
+  }
+
+  const allPendingSenhas = await senha.getAllPendingSenhas(
+    paramsShema.data.servicoId
+  );
+
+  if (!allPendingSenhas) {
+    res.status(500).json({ message: "Erro ao buscar todas as senhas" });
+    return;
+  }
+
+  res.status(201).json(allPendingSenhas);
+  return;
 };
