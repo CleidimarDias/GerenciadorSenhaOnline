@@ -1,12 +1,13 @@
+"use client";
+
 import { getReparticao } from "@/data/get-reparticao";
 import { getAllServicos } from "@/data/getAllServicos";
 import { CategoriaServico } from "@/types/typesServicos";
-import { notFound } from "next/navigation";
-import React from "react";
+import { getPeendingSenhas } from "@/data/getAllPeendingSenhas";
+
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-//import { Button } from "@/components/ui/button";
-
 import {
   Dialog,
   DialogContent,
@@ -15,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { Toaster } from "@/components/ui/sonner";
 import { FormularioCidadaoGerarSenha } from "./formularioCidadaoGerarSenha";
 
 interface TriagemProps {
@@ -27,124 +28,105 @@ interface ReparticaoProps {
   id: string;
 }
 
-export default async function Triagem({ slug }: TriagemProps) {
-  const reparticao: ReparticaoProps = await getReparticao(slug);
+interface QuantidadePorServico {
+  id: string;
+  nome: string;
+  quantidade: number;
+}
 
-  if (!reparticao) {
-    notFound();
-  }
+export default function Triagem({ slug }: TriagemProps) {
+  const [reparticao, setReparticao] = useState<ReparticaoProps | null>(null);
+  const [servicosData, setServicosData] = useState<CategoriaServico[]>([]);
+  const [quantidadeDeSenhasPorServico, setQuantidadeDeSenhasPorServico] =
+    useState<QuantidadePorServico[]>([]);
 
-  const servicos: CategoriaServico[] = await getAllServicos(reparticao.id);
+  // Carrega dados fixos uma vez
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      const rep = await getReparticao(slug);
+      if (!rep) return;
+      setReparticao(rep);
 
-  if (!servicos) {
-    notFound();
-  }
+      const servicos = await getAllServicos(rep.id);
+      setServicosData(servicos);
 
-  console.log(
-    "Serviços: ",
-    servicos[0].name
-    // servicos.servicos.map((ser) => ser.name)
-  );
+      // Atualiza quantidade de senhas ao carregar
+      atualizarQuantidadeDeSenhas(servicos);
+    };
 
+    fetchInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
+  // Atualiza só as senhas pendentes a cada 5s
+  const atualizarQuantidadeDeSenhas = async (
+    servicos: CategoriaServico[] = servicosData
+  ) => {
+    const todasSenhas = await Promise.all(
+      servicos.map((s) => getPeendingSenhas(s.id))
+    );
+
+    const quantidades = servicos.map((s, index) => ({
+      id: s.id,
+      nome: s.name,
+      quantidade: todasSenhas[index]?.length || 0,
+    }));
+
+    setQuantidadeDeSenhasPorServico(quantidades);
+  };
+
+  if (!reparticao) return <p>Carregando...</p>;
   return (
     <div className="h-screen max-w-screen flex flex-col ">
-      <div className="flex justify-around  p-10 text-3xl text-gray-800 font-semibold">
+      <div className="flex justify-around p-10 text-3xl text-gray-800 font-semibold">
         <h3>Triagem</h3>
-
-        <h3>{slug.toLocaleUpperCase()}</h3>
+        <h3>{slug.toUpperCase()}</h3>
       </div>
 
-      <div className="h-full flex max-w-screen items-center justify-center  border-2 mx-4 mb-8 rounded-2xl border-[#1270b7]  ">
-        <div className=" grid grid-cols-4 gap-10 w-full  mx-8   ">
-          {servicos &&
-            servicos.map((servico) => {
-              return (
-                <div key={servico.id} className="  h-full  w-full      ">
-                  <Card className=" h-full text-center text-2xl w-full py-10 border-2 border-[#1270b7]    ">
-                    <CardHeader className="">{servico.name}</CardHeader>
-                    <CardContent>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button className="bg-[#1270b7] hover:bg-blue-700 text-xl">
-                            Gerar senha
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                          <DialogHeader>
-                            <DialogTitle>Cidadão</DialogTitle>
-                            <DialogDescription>
-                              Preêncha os dados do cidadão
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className=" py-4 ">
-                            <div className=" items-center gap-4">
-                              <FormularioCidadaoGerarSenha />
-                              {/* <Label htmlFor="name" className="text-right">
-                                Nome:
-                              </Label>
-                              <Input
-                                id="name"
-                                value="Pedro Duarte"
-                                className="col-span-3"
-                              /> */}
-                            </div>
-                            {/* <div className="grid grid-cols-4 items-center gap-4">
-                              <Label htmlFor="username" className="text-right">
-                                CPF
-                              </Label>
-                              <Input
-                                id="username"
-                                value="@peduarte"
-                                className="col-span-3"
-                              />
-                            </div> */}
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-        </div>
-      </div>
-
-      {/* <div className="h-full flex max-w-screen items-center justify-center  border-2 mx-4 mb-8 rounded-2xl border-[#1270b7]  ">
-        <div className=" grid grid-cols-4 gap-10 w-full  mx-8   ">
-          {servicos &&
-            servicos.map((servico) => {
-              return (
-                <div key={servico.id} className="  h-full  w-full      ">
-                  <Card className=" h-full text-center text-2xl w-full py-10 border-2 border-[#1270b7]    ">
-                    <CardHeader className="">{servico.name}</CardHeader>
-                    <CardContent>
-                      <Button className="bg-[#1270b7] hover:bg-blue-700 text-xl">
-                        Gerar senha
+      <div className="h-full flex max-w-screen items-center justify-center border-2 mx-4 mb-8 rounded-2xl border-[#1270b7]">
+        <div className="grid grid-cols-4 gap-10 w-full mx-8">
+          {quantidadeDeSenhasPorServico.map((servico) => (
+            <div key={servico.id} className="h-full w-full">
+              <Card className="h-full text-center text-2xl w-full py-10 border-[#1270b7] shadow-xl/60 shadow-[#1270b7] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-zinc-100 hover:border-yellow-600">
+                <CardHeader>{servico.nome}</CardHeader>
+                <CardContent>
+                  <p className="mb-4 text-base text-gray-600">
+                    Senhas pendentes: {servico.quantidade}
+                  </p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className=" hover:bg-white hover:text-zinc-950 border-[#1270b7]  hover:border-2 hover:border-yellow-600 text-xl"
+                      >
+                        Criar senha
                       </Button>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Cidadão</DialogTitle>
+                        <DialogDescription>
+                          Preencha os dados do cidadão
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="py-4">
+                        <div className="items-center gap-4">
+                          <FormularioCidadaoGerarSenha
+                            reparticaoId={reparticao.id}
+                            servicoId={servico.id}
+                            onSenhaCriada={() => atualizarQuantidadeDeSenhas()}
+                          />
+                        </div>
+                        <Toaster />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
         </div>
-      </div> */}
+      </div>
     </div>
-
-    //  <div className=" flex md:flex-row flex-col max-w-screen h-full  justify-around items-center gap-4 mr-4 ml-4">
-    //     {servicos &&
-    //       servicos.map((servico) => {
-    //         return (
-    //           <div key={servico.id} className="  h-1/3  w-full flex    ">
-    //             <Card className=" h-full text-center text-2xl w-full  ">
-    //               <CardHeader className="">{servico.name}</CardHeader>
-    //               <CardContent>
-    //                 <Button>Gerar senha</Button>
-    //               </CardContent>
-    //             </Card>
-    //           </div>
-    //         );
-    //       })}
-    //   </div>
-    // </div>
   );
 }
