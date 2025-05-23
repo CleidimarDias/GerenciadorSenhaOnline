@@ -3,7 +3,6 @@
 import { getReparticao } from "@/data/get-reparticao";
 import { getAllServicos } from "@/data/getAllServicos";
 import { CategoriaServico } from "@/types/typesServicos";
-import { getPeendingSenhas } from "@/data/getAllPeendingSenhas";
 
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { FormularioCidadaoGerarSenha } from "./formularioCidadaoGerarSenha";
+import { getAllSenhas } from "@/data/getAllSenhas";
 
 interface TriagemProps {
   slug: string;
@@ -63,7 +63,7 @@ export default function Triagem({ slug }: TriagemProps) {
     servicos: CategoriaServico[] = servicosData
   ) => {
     const todasSenhas = await Promise.all(
-      servicos.map((s) => getPeendingSenhas(s.id))
+      servicos.map((s) => getAllSenhas(s.id))
     );
 
     const quantidades = servicos.map((s, index) => ({
@@ -74,6 +74,22 @@ export default function Triagem({ slug }: TriagemProps) {
 
     setQuantidadeDeSenhasPorServico(quantidades);
   };
+
+  // const atualizarQuantidadeDeSenhas = async (
+  //   servicos: CategoriaServico[] = servicosData
+  // ) => {
+  //   const todasSenhas = await Promise.all(
+  //     servicos.map((s) => getPeendingSenhas(s.id))
+  //   );
+
+  //   const quantidades = servicos.map((s, index) => ({
+  //     id: s.id,
+  //     nome: s.name,
+  //     quantidade: todasSenhas[index]?.length || 0,
+  //   }));
+
+  //   setQuantidadeDeSenhasPorServico(quantidades);
+  // };
 
   if (!reparticao) return <p>Carregando...</p>;
   return (
@@ -91,7 +107,7 @@ export default function Triagem({ slug }: TriagemProps) {
                 <CardHeader>{servico.nome}</CardHeader>
                 <CardContent>
                   <p className="mb-4 text-base text-gray-600">
-                    Senhas pendentes: {servico.quantidade}
+                    Total: {servico.quantidade}
                   </p>
                   <Dialog>
                     <DialogTrigger asChild>

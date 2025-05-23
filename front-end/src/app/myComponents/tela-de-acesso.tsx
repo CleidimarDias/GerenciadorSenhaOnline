@@ -12,6 +12,7 @@ import Link from "next/link";
 
 interface ReparticãoProps {
   reparticaoName: string;
+
   slug: string;
 }
 
@@ -33,8 +34,9 @@ export default function TelaDeAcesso({
             <Link href={`/${slug}/gerenciaDeTela/triagem`}>Triagem</Link>
           </Button>
           <Button className="bg-[#1270b7]  hover:bg-blue-700 p-6 text-xl">
-            {" "}
-            Guichê de Atendimento
+            <Link href={`/${slug}/gerenciaDeTela/guicheDeAtendimento`}>
+              Guichê de Atendimento
+            </Link>
           </Button>
           <Button className="bg-[#1270b7]  hover:bg-blue-700 p-6 text-xl">
             {" "}
