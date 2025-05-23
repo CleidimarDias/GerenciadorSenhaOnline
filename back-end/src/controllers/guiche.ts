@@ -34,12 +34,24 @@ export const createGuiche: RequestHandler = async (req, res) => {
   res.status(201).json(newGuiche);
 };
 
-// export const getAllReparticoes: RequestHandler = async (req, res) => {
-//   const reparticoes = await reparticao.getAllReparticoes();
+//Listar todos os guiches da repartição
+export const getAllGuiches: RequestHandler = async (req, res) => {
+  const guicheSchema = z.object({
+    reparticaoId: z.string(),
+  });
 
-//   if (!reparticoes) {
-//     res.status(500).json({ error: "Erro ao buscar Repartições" });
-//     return;
-//   }
-//   res.status(200).json(reparticoes);
-// };
+  const params = guicheSchema.safeParse(req.params);
+
+  if (!params.success) {
+    res.status(500).json({ message: "Erro ao passar reparticaoId" });
+    return;
+  }
+
+  const allGuiches = await guiche.getAllGuiches(params.data.reparticaoId);
+
+  if (!allGuiches) {
+    res.status(500).json({ error: "Erro ao buscar Repartições" });
+    return;
+  }
+  res.status(200).json(allGuiches);
+};

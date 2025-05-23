@@ -121,3 +121,28 @@ export const getAllPendingSenhas: RequestHandler = async (req, res) => {
   res.status(201).json(allPendingSenhas);
   return;
 };
+
+//Mostrar todas as senhas por serviço
+
+export const getAllSenhas: RequestHandler = async (req, res) => {
+  const senhasSchema = z.object({
+    servicoId: z.string(),
+  });
+
+  const paramsShema = senhasSchema.safeParse(req.params);
+
+  if (!paramsShema.success) {
+    res.status(400).json({ error: "erro ao passar os params" });
+    return;
+  }
+
+  const allSenhas = await senha.getAllSenhas(paramsShema.data.servicoId);
+
+  if (!allSenhas) {
+    res.status(500).json({ message: "Erro ao buscar todas as senhas" });
+    return;
+  }
+
+  res.status(201).json(allSenhas);
+  return;
+};

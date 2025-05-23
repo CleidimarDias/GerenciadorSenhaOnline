@@ -16,9 +16,10 @@ import {
   chamarProximaSenha,
   createSenha,
   getAllPendingSenhas,
+  getAllSenhas,
 } from "../controllers/senha";
 import { createCidadao } from "../controllers/cidadao";
-import { createGuiche } from "../controllers/guiche";
+import { createGuiche, getAllGuiches } from "../controllers/guiche";
 import { login } from "../controllers/login";
 import { auth } from "../midlewares/auth";
 import { me } from "../controllers/authMe";
@@ -47,7 +48,9 @@ mainRouter.get(
 );
 
 mainRouter.post("/cidadao/reparticaoId/:reparticaoId", createCidadao);
+
 mainRouter.post("/guiche/reparticaoId/:reparticaoId", createGuiche);
+mainRouter.get("/guiche/reparticaoId/:reparticaoId", getAllGuiches);
 
 mainRouter.post(
   "/senha/servicoId/:servicoId/cidadaoId/:cidadaoId",
@@ -59,6 +62,7 @@ mainRouter.get(
 );
 
 mainRouter.get("/senha/servicoId/:servicoId/", getAllPendingSenhas);
+mainRouter.get("/senha/todasAsSenhas/servicoId/:servicoId", getAllSenhas);
 
 mainRouter.post("/user/getUserByCpfAndPassword", getUserByCpfAndPassword);
 

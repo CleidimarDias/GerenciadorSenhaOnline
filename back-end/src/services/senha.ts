@@ -278,3 +278,25 @@ export const getAllPendingSenhas = async (servicoId: string) => {
     return false;
   }
 };
+
+// Pegar todas as senhas por serviço-----------------------------------------------------
+
+export const getAllSenhas = async (servicoId: string) => {
+  try {
+    return await prisma.senha.findMany({
+      where: {
+        servicoId: servicoId,
+      },
+      include: {
+        servico: true,
+        cidadao: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  } catch (error) {
+    console.error("Erro ao pegar todas as senahs: ", error);
+    return false;
+  }
+};

@@ -13,6 +13,21 @@ export const createGuiche = async (data: createGuicheData) => {
   }
 };
 
+export const getAllGuiches = async (guicheId: string) => {
+  try {
+    return await prisma.reparticao.findMany({
+      where: {
+        id: guicheId,
+      },
+      select: {
+        guiches: true,
+      },
+    });
+  } catch (error) {
+    console.error({ message: "Erro no banco ao buscar todos guichês" });
+  }
+};
+
 // export const getAllReparticoes = async () => {
 //   try {
 //     return await prisma.Guiche.findMany({
