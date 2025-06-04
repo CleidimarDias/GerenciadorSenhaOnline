@@ -4,7 +4,7 @@ import "./globals.css";
 
 import Header from "@/app/myComponents/header";
 import { AuthProvider } from "./contexts/AuthContext";
-import Footer from "./myComponents/footer";
+//import Footer from "./myComponents/footer";
 import { GuicheProvider } from "./contexts/guicheContext";
 import { TotalSenhasProvider } from "./contexts/totalSenhasContext";
 
@@ -31,14 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen overflow-hidden bg-[#ebeff5]`}
       >
         <AuthProvider>
           <GuicheProvider>
             <TotalSenhasProvider>
-              <Header />
-              {children}
-              <Footer />
+              <div className="flex flex-col min-h-screen max-h-screen overflow-hidden">
+                <Header />
+                <main className="flex-grow overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full scale-95  mb-8">{children}</div>
+                </main>
+              </div>
             </TotalSenhasProvider>
           </GuicheProvider>
         </AuthProvider>

@@ -69,7 +69,7 @@ export default function CardEscolhaGuiche({
   console.log("Guiche Selecionado: ", guicheSelecionado?.label);
 
   return (
-    <div className="flex justify-around   mt-10 mx-10  w-full ">
+    <div className="flex justify-around       w-full ">
       <Card className=" w-[280px] shadow-[#1270b7]">
         <CardHeader>
           <CardTitle>Guichê</CardTitle>
@@ -161,7 +161,7 @@ export default function CardEscolhaGuiche({
       <div className="w-[280px] h-[280px] bg-[#1270b7]/90 text-accent rounded-full flex flex-col  justify-center items-center    m-2">
         <p className="text-xl">Guichê</p>
         <p className="text-9xl ">
-          {guicheSelecionado ? guicheSelecionado.label : "0"}
+          {guicheSelecionado ? guicheSelecionado.label : "?"}
         </p>
       </div>
     </div>

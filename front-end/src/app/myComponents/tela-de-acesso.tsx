@@ -39,8 +39,7 @@ export default function TelaDeAcesso({
             </Link>
           </Button>
           <Button className="bg-[#1270b7]  hover:bg-blue-700 p-6 text-xl">
-            {" "}
-            Monitor
+            <Link href={`/${slug}/gerenciaDeTela/monitor`}>Monitor </Link>
           </Button>
           <Button className="bg-[#1270b7]  hover:bg-blue-700 p-6 text-xl">
             {" "}

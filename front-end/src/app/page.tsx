@@ -9,7 +9,7 @@ export default function Home() {
 
   console.log(isAuthenticated);
   // if (isAuthenticated) {
-  return <div>PÁGINA HOME</div>;
+  return <div className="h-dvh">PÁGINA HOME</div>;
   // } else {
   //   redirect("/bla/login");
   // }

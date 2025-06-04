@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import z from "zod";
 import * as senha from "../services/senha";
+import { io } from "../server";
 // import { Prioridades, SenhaStatus } from "../generated/prisma";
 
 export const createSenha: RequestHandler = async (req, res) => {
@@ -53,6 +54,9 @@ export const chamarProximaSenha: RequestHandler = async (req, res) => {
     res.status(500).json({ error: "Erro ao chamar a próxima senha" });
     return;
   }
+
+  io.emit("Senha-Chamada", senhaChamada);
+
   res.status(200).json(senhaChamada);
 };
 
