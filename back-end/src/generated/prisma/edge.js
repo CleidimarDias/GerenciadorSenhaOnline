@@ -201,7 +201,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Cleidimar\\Documents\\SISTEMAS\\PREFEITURA\\GerenciadorSenha\\back-end\\src\\generated\\prisma",
+      "value": "C:\\Sistemas\\Prefeitura\\GerenciadorSenha\\back-end\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -215,7 +215,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Cleidimar\\Documents\\SISTEMAS\\PREFEITURA\\GerenciadorSenha\\back-end\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Sistemas\\Prefeitura\\GerenciadorSenha\\back-end\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -233,7 +233,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:123456@localhost:5432/sine?schema=public"
+        "value": "postgresql://GerenciaSenha_owner:npg_evHBftO6wg7l@ep-dark-silence-a8q4k417-pooler.eastus2.azure.neon.tech/GerenciaSenha?sslmode=require&channel_binding=require"
       }
     }
   },
