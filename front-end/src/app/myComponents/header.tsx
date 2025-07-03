@@ -11,7 +11,7 @@ export default function Header() {
         className=" "
       />
       <h3 className="text-white text-3xl font-semibold mr-10 hidden md:block  ">
-        Gerênciador de Senhas
+        Gerênciador de Senhass
       </h3>
     </div>
   );
